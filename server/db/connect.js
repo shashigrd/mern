@@ -1,6 +1,7 @@
 const mongooes = require('mongoose');
+require('dotenv').config();
 
-const DB = '';
+const DB = process.env.DB_URL;
 
 mongooes.set('strictQuery', true);
 mongooes.connect(DB).then(() => {
