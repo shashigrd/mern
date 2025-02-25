@@ -1,27 +1,32 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-require('../db/connect');
-const User = require('../model/userSchema');
+const controller = require("../controllers/auth-controller");
+// require('../db/connect');
+// const User = require('../model/userSchema');
 
-router.get('/', (req, res) => {
-    res.send('home from router');
-});
+router.get("/", controller.home);
+router.route("/register").post(controller.register);
+router.route("/login").post(controller.login);
+router.route("/contact").post(controller.contact);
 
-router.post('/register', (req, res) => {
-    const { name, email, phone, work, password, cpassword } = req.body;
-    const user = new User({ name, email, phone, work, password, cpassword });
-    user.save().then(() => {
-        res.status(201).json({ msg: 'user register successfully'});
-    }).catch((err) => res.send('register err:::', err));
-});
-
-router.get('/users', (req, res) => {
-    User.find((err, users) => {
-        if (err) {
-            return res.send(err);
-        }
-        res.status(200).json(users);
+router.post("/register", (req, res) => {
+  const { name, email, phone, work, password, cpassword } = req.body;
+  const user = new User({ name, email, phone, work, password, cpassword });
+  user
+    .save()
+    .then(() => {
+      res.status(201).json({ msg: "user register successfully" });
     })
+    .catch((err) => res.send("register err:::", err));
+});
+
+router.get("/users", (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.status(200).json(users);
+  });
 });
 
 module.exports = router;
