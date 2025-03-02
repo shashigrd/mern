@@ -38,7 +38,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const userInfo = await User.findOne({ email });
     if (!userInfo) {
-      const error = { status: 400, message: "user not exist3" };
+      const error = { status: 400, message: "user not exist" };
       // return res.status(400).json({ msg: "user not exist" });
       next(error);
     }
@@ -64,4 +64,15 @@ const contact = async (req, res, next) => {
   }
 };
 
-module.exports = { home, register, login, contact };
+const user = async (req, res) => {
+  const { email } = req;
+  const userInfo = await User.findOne({ email });
+  if (userInfo) {
+    console.log("user:::", userInfo);
+    return res.status(200).json({ msg: userInfo });
+  } else {
+    return res.status(500).json({ msg: "Email does not exists" });
+  }
+};
+
+module.exports = { home, register, login, contact, user };

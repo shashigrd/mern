@@ -1,34 +1,27 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Registration } from "./pages/Registration";
+import { Login } from "./pages/Login";
+import { Logout } from "./pages/Logout";
+import { AuthProvider } from "./common/AuthProvider";
+import { NavBar } from "./pages/NavBar";
+import { ContactUs } from "./pages/ContactUs";
+import "./App.css";
 
 function App() {
   return (
-    <React.Fragment>
+    <AuthProvider>
       <Router>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About Us</Link>
-          </li>
-          <li>
-            <Link to="/registration">Registration</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<h1>About</h1>} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/login" element={<h1>Login</h1>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
-    </React.Fragment>
+    </AuthProvider>
   );
 }
 

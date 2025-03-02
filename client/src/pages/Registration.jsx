@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../common/AuthProvider";
 
 export const Registration = () => {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const { storeToken } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +28,8 @@ export const Registration = () => {
     });
     const data = await response.json();
     console.log(data);
+    storeToken(data.token);
+    navigate("/");
   };
 
   return (
