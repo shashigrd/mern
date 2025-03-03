@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../common/AuthProvider";
+import "../styles/Registration.css"; // Import the CSS file
 
 export const Registration = () => {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { storeToken } = useAuth();
 
@@ -18,6 +20,16 @@ export const Registration = () => {
   };
 
   const handleSubmit = async () => {
+    if (
+      !formData.username ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.password
+    ) {
+      setError("All fields are required");
+      return;
+    }
+
     console.log(formData);
     const response = await fetch("http://localhost:3000/api/auth/register", {
       method: "POST",
@@ -33,9 +45,10 @@ export const Registration = () => {
   };
 
   return (
-    <div>
+    <div className="registration-container">
       <h1>Registration</h1>
-      <div>
+      {error && <p className="error">{error}</p>}
+      <div className="form-group">
         <label>User Name</label>
         <input
           type="text"
@@ -44,7 +57,7 @@ export const Registration = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Email</label>
         <input
           type="text"
@@ -53,7 +66,7 @@ export const Registration = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Phone</label>
         <input
           type="text"
@@ -62,7 +75,7 @@ export const Registration = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Password</label>
         <input
           type="text"

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../common/AuthProvider";
+import "../styles/NavBar.css";
 
 export const NavBar = () => {
   const { isLogin } = useAuth();
   return (
-    <ul>
+    <ul className="navbar">
       <li>
         <Link to="/">Home</Link>
       </li>

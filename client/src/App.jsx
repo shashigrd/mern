@@ -6,7 +6,7 @@ import { Logout } from "./pages/Logout";
 import { AuthProvider } from "./common/AuthProvider";
 import { NavBar } from "./pages/NavBar";
 import { ContactUs } from "./pages/ContactUs";
-import "./App.css";
+import "./styles/App.css";
 
 function App() {
   return (
