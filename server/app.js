@@ -17,7 +17,6 @@ app.use("/api/auth", router);
 app.use(errorMiddleware);
 
 const middleware = (req, res, next) => {
-  console.log("middleware");
   next();
 };
 

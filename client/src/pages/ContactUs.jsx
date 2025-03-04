@@ -4,7 +4,6 @@ import { useAuth } from "../common/AuthProvider";
 export const ContactUs = () => {
   const { token } = useAuth();
   const [userData, setUserData] = useState();
-  console.log("contact us token:::", token);
 
   const checkUser = async () => {
     const data = await fetch("http://localhost:3000/api/auth/users", {
@@ -21,8 +20,6 @@ export const ContactUs = () => {
   useEffect(() => {
     checkUser();
   }, []);
-
-  console.log("userData:::", userData);
 
   return (
     <React.Fragment>

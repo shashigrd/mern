@@ -1,5 +1,6 @@
-import React from "react";
+import { useAuth } from "../common/AuthProvider";
 
 export const Home = () => {
-  return <h1>Home</h1>;
+  const { userData } = useAuth();
+  return <h1>Welcome {userData.username}</h1>;
 };

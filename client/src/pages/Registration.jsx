@@ -7,7 +7,7 @@ export const Registration = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { storeToken } = useAuth();
+  const { storeToken, setUserData } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +30,6 @@ export const Registration = () => {
       return;
     }
 
-    console.log(formData);
     const response = await fetch("http://localhost:3000/api/auth/register", {
       method: "POST",
       headers: {
@@ -39,8 +38,8 @@ export const Registration = () => {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    console.log(data);
     storeToken(data.token);
+    setUserData(data.msg);
     navigate("/");
   };
 

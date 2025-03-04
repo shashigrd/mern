@@ -6,7 +6,7 @@ import "../styles/Login.css";
 export const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const { storeToken } = useAuth();
+  const { storeToken, setUserData } = useAuth();
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -25,7 +25,6 @@ export const Login = () => {
       return;
     }
 
-    console.log("login form data:::", formData);
     const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       headers: {
@@ -34,8 +33,8 @@ export const Login = () => {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    console.log("login form submit response:::", data);
     storeToken(data.token);
+    setUserData(data.msg);
     navigate("/");
   };
 
