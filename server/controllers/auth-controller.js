@@ -63,14 +63,17 @@ const contact = async (req, res, next) => {
   }
 };
 
-const user = async (req, res) => {
-  const { email } = req;
-  const userInfo = await User.findOne({ email });
-  if (userInfo) {
-    return res.status(200).json({ msg: userInfo });
+const users = async (req, res) => {
+  // email updated from auth middleware
+  // const { email } = req;
+  const userList = await User.find({}, { password: 0 });
+  if (userList) {
+    return res.status(200).json({ msg: userList });
   } else {
-    return res.status(500).json({ msg: "Email does not exists" });
+    return res
+      .status(500)
+      .json({ msg: "Internal server error to find user list" });
   }
 };
 
-module.exports = { home, register, login, contact, user };
+module.exports = { home, register, login, contact, users };

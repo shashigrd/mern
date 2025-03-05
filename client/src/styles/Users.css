@@ -1,0 +1,15 @@
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.table-header {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

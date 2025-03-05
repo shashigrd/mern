@@ -9,7 +9,7 @@ router.get("/", controller.home);
 router.route("/register").post(controller.register);
 router.route("/login").post(controller.login);
 router.route("/contact").post(controller.contact);
-router.route("/users").get(authMiddleware, controller.user);
+router.route("/users").get(authMiddleware, controller.users);
 
 router.post("/register", (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;
@@ -21,17 +21,5 @@ router.post("/register", (req, res) => {
     })
     .catch((err) => res.send("register err:::", err));
 });
-
-// router.get("/users", authMiddleware, (req, res) => {
-// const { email } = req.body;
-
-// return res.status(200).json({ msg: "users route with middleware" });
-// User.find((err, users) => {
-//   if (err) {
-//     return res.send(err);
-//   }
-//   res.status(200).json(users);
-// });
-// });
 
 module.exports = router;
