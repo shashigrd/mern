@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/Registration.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../common/AuthProvider";
 
 export const UserDetails = () => {
@@ -8,7 +8,7 @@ export const UserDetails = () => {
   const [error, setError] = useState("");
   const { userId } = useParams();
   const { token } = useAuth();
-  console.log(userId);
+  const navigation = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,8 +32,6 @@ export const UserDetails = () => {
     getUser();
   }, [userId]);
 
-  console.log(formData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevValue) => {
@@ -43,6 +41,24 @@ export const UserDetails = () => {
       };
     });
   };
+
+  const handleSubmit = async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/auth/user/update?userId=${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      navigation("/users");
+    }
+  };
+
   return (
     <div className="registration-container">
       <h1>User Details</h1>
@@ -78,7 +94,9 @@ export const UserDetails = () => {
         />
       </div>
       <div>
-        <button type="button">Update User</button>
+        <button type="button" onClick={handleSubmit}>
+          Update User
+        </button>
       </div>
     </div>
   );

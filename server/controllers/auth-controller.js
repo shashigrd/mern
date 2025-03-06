@@ -86,4 +86,30 @@ const getUserById = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login, contact, users, getUserById };
+const updateUserById = async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const updatedUser = req.body;
+    // const isUpdated = await User.findByIdAndUpdate(userId, updatedUser, {
+    //   new: true,
+    //   runValidators: true,
+    // });
+    const isUpdated = await User.updateOne(
+      { _id: userId },
+      { $set: updatedUser }
+    );
+    res.status(200).json({ msg: isUpdated });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
+
+module.exports = {
+  home,
+  register,
+  login,
+  contact,
+  users,
+  getUserById,
+  updateUserById,
+};

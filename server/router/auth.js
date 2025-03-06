@@ -11,16 +11,6 @@ router.route("/login").post(controller.login);
 router.route("/contact").post(controller.contact);
 router.route("/users").get(authMiddleware, controller.users);
 router.route("/user/edit/:id").get(authMiddleware, controller.getUserById);
-
-router.post("/register", (req, res) => {
-  const { name, email, phone, work, password, cpassword } = req.body;
-  const user = new User({ name, email, phone, work, password, cpassword });
-  user
-    .save()
-    .then(() => {
-      res.status(201).json({ msg: "user register successfully" });
-    })
-    .catch((err) => res.send("register err:::", err));
-});
+router.route("/user/update").patch(authMiddleware, controller.updateUserById);
 
 module.exports = router;
