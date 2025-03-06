@@ -6,6 +6,7 @@ import { Logout } from "./pages/Logout";
 import { AuthProvider } from "./common/AuthProvider";
 import { NavBar } from "./pages/NavBar";
 import { Users } from "./pages/Users";
+import { UserDetails } from "./pages/UserDetails";
 import "./styles/App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/user/edit/:userId" element={<UserDetails />} />
         </Routes>
       </Router>
     </AuthProvider>

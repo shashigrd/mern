@@ -10,6 +10,7 @@ router.route("/register").post(controller.register);
 router.route("/login").post(controller.login);
 router.route("/contact").post(controller.contact);
 router.route("/users").get(authMiddleware, controller.users);
+router.route("/user/edit/:id").get(authMiddleware, controller.getUserById);
 
 router.post("/register", (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;

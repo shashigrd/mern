@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../common/AuthProvider";
 import "../styles/Users.css";
+import { Link } from "react-router-dom";
 
 export const Users = () => {
   const { token } = useAuth();
@@ -45,7 +46,9 @@ export const Users = () => {
                   <td className="table-cell">{user.username}</td>
                   <td className="table-cell">{user.email}</td>
                   <td className="table-cell">{user.phone}</td>
-                  <td className="table-cell">Edit</td>
+                  <td className="table-cell">
+                    <Link to={`/user/edit/${user._id}`}>Edit </Link>
+                  </td>
                   <td className="table-cell">Delete</td>
                 </tr>
               );

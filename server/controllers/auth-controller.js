@@ -76,4 +76,14 @@ const users = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login, contact, users };
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const userDetails = await User.findOne({ _id: userId }, { password: 0 });
+    res.status(200).json({ msg: userDetails });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
+
+module.exports = { home, register, login, contact, users, getUserById };
